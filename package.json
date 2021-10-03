@@ -5,8 +5,10 @@
   "bugs": "https://github.com/Matthew Doles/conference-app/issues",
   "dependencies": {
     "compression": "^1.7.4",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "helmet": "^4.6.0"
+    "helmet": "^4.6.0",
+    "jsforce-patterns": "^1.1.1"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
