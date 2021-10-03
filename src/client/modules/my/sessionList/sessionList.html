@@ -5,12 +5,38 @@
       placeholder="Search sessions..."
       oninput={handleSearchKeyInput}
     />
-    <template for:each={sessions} for:item="session" for:index="index">
+    <h2>Retrieved via API</h2>
+    <template for:each={sessionsAPI} for:item="session" for:index="index">
       <a
         key={session.id}
         class="session"
         data-index={index}
-        onclick={handleSessionClick}
+        onclick={handleSessionClickAPI}
+      >
+        <div>
+          <p class="title">{session.name}</p>
+          <p class="icon time">{session.dateTime}</p>
+          <p class="icon room">{session.room}</p>
+        </div>
+        <div class="speaker-pictures">
+          <template for:each={session.speakers} for:item="speaker">
+            <img
+              key={speaker.id}
+              src={speaker.pictureUrl}
+              alt={speaker.name}
+              title={speaker.name}
+            />
+          </template>
+        </div>
+      </a>
+    </template>
+    <h2>Retrieved via Salesforce</h2>
+    <template for:each={sessionsSF} for:item="session" for:index="index">
+      <a
+        key={session.id}
+        class="session"
+        data-id={session.id}
+        onclick={handleSessionClickSF}
       >
         <div>
           <p class="title">{session.name}</p>
