@@ -10,8 +10,8 @@
       <a
         key={session.id}
         class="session"
-        data-index={index}
-        onclick={handleSessionClickAPI}
+        data-id={session.id}
+        onclick={handleSessionClick}
       >
         <div>
           <p class="title">{session.name}</p>
@@ -36,7 +36,7 @@
         key={session.id}
         class="session"
         data-id={session.id}
-        onclick={handleSessionClickSF}
+        onclick={handleSessionClick}
       >
         <div>
           <p class="title">{session.name}</p>

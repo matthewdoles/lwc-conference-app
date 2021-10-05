@@ -1,16 +1,16 @@
 import { LightningElement } from 'lwc';
-import { getSessionsAPI, getSessionsSF } from 'data/sessionService';
+import { getSessions } from 'data/sessionService';
 export default class SessionList extends LightningElement {
   sessionsAPI = [];
   sessionsSF = [];
   allSessions = [];
 
   connectedCallback() {
-    getSessionsAPI().then((result) => {
+    getSessions('api').then((result) => {
       this.sessionsAPI = result;
       this.allSessions.push(...result);
     });
-    getSessionsSF().then((result) => {
+    getSessions('salesforce').then((result) => {
       this.sessionsSF = result;
       this.allSessions.push(...result);
     });
@@ -26,18 +26,7 @@ export default class SessionList extends LightningElement {
     );
   }
 
-  handleSessionClickAPI(event) {
-    const index = event.currentTarget.dataset.index;
-    const navigateEvent = new CustomEvent('navigate', {
-      detail: {
-        state: 'details',
-        sessionId: this.sessionsAPI[index].id
-      }
-    });
-    this.dispatchEvent(navigateEvent);
-  }
-
-  handleSessionClickSF(event) {
+  handleSessionClick(event) {
     const navigateEvent = new CustomEvent('navigate', {
       detail: {
         state: 'details',
