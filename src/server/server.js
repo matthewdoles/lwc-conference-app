@@ -1,7 +1,8 @@
-// Simple Express server setup to serve for local testing/dev API server
+// Simple Express server setup to serve the build output
 const compression = require('compression');
 const express = require('express');
 const jsforce = require('jsforce');
+const path = require('path');
 require('dotenv').config();
 
 const { SF_USERNAME, SF_PASSWORD, SF_TOKEN, SF_LOGIN_URL } = process.env;
@@ -24,12 +25,11 @@ conn.login(SF_USERNAME, SF_PASSWORD + SF_TOKEN, (err) => {
 const app = express();
 app.use(compression());
 
-const HOST = process.env.API_HOST || 'localhost';
-const PORT = process.env.API_PORT || 3002;
+const HOST = process.env.HOST || 'localhost';
+const PORT = process.env.PORT || 3001;
+const DIST_DIR = './dist';
 
-app.get('/api/v1/endpoint', (req, res) => {
-  res.json({ success: true });
-});
+app.use(express.static(DIST_DIR));
 
 app.get('/api/sessions', (req, res) => {
   const soql = `SELECT Id, Name, toLabel(Room__c), Description__c, format(Session_Date__c) formattedDateTime,
@@ -72,6 +72,10 @@ app.get('/api/sessions', (req, res) => {
   });
 });
 
+app.use('*', (req, res) => {
+  res.sendFile(path.resolve(DIST_DIR, 'index.html'));
+});
+
 app.listen(PORT, () =>
-  console.log(`✅  API Server started: http://${HOST}:${PORT}/api/v1/endpoint`)
+  console.log(`✅  Server started: http://${HOST}:${PORT}`)
 );

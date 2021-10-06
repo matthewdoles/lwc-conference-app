@@ -1,5 +1,5 @@
 const URL_API = 'https://conference-lwc-app.herokuapp.com/api/sessions';
-const URL_SF = 'https://lwc-conference-bakcend.herokuapp.com/sessions';
+const URL_SF = '/api/sessions';
 
 let sessions = [];
 
