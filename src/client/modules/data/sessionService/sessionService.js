@@ -3,17 +3,6 @@ const URL_SF = '/api/sessions';
 
 let sessions = [];
 
-export const getSessions = (source) => {
-  switch (source) {
-    case 'api':
-      return fetchData(URL_API);
-    case 'salesforce':
-      return fetchData(URL_SF);
-    default:
-      return fetchData(URL_API);
-  }
-};
-
 const fetchData = (url) =>
   fetch(url)
     .then((response) => {
@@ -26,6 +15,17 @@ const fetchData = (url) =>
       sessions.push(...result.data);
       return result.data;
     });
+
+export const getSessions = (source) => {
+  switch (source) {
+    case 'api':
+      return fetchData(URL_API);
+    case 'salesforce':
+      return fetchData(URL_SF);
+    default:
+      return fetchData(URL_API);
+  }
+};
 
 export const getSession = (sessionId) => {
   return sessions.find((session) => {
